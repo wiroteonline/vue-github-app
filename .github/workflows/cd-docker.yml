@@ -1,0 +1,22 @@
+name: 'build and deploy production'
+
+on: 
+  push: 
+    tags: 
+      - '*'
+
+jobs:
+    release-docker-image-job:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+    
+          - name: Build image and push to GitHub Packages (Docker Registry)
+            uses: mr-smithers-excellent/docker-build-push@v6
+            with:
+              image: ${{ github.event.repository.name }}
+              tags: v1, latest
+              registry: ghcr.io
+              dockerfile: Dockerfile.ci
+              username: ${{ github.actor }}
+              password: ${{ secrets.GITHUB_TOKEN }}

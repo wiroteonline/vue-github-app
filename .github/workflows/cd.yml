@@ -3,7 +3,8 @@ name: 'build and deploy production'
 on: 
   push: 
     tags: 
-      - '*'
+      #- '*' ใช้งานได้
+      - 'v1000' # ใช้งานไม่ได้
 
 jobs:
     build-production-job:
