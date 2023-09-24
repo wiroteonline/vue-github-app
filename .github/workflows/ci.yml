@@ -1,0 +1,23 @@
+name: 'CI'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set nodejs version 18.x
+        # optional จะเขียนหรือไม่ก้ได้
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+# ต้องรู้ลำดับก่อนหลัง
+      - run: npm ci
+
+      - name: Run lint
+        run: npm run lint
